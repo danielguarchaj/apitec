@@ -1,0 +1,9 @@
+django
+djangorestframework
+djangorestframework-jwt
+django-cors-headers
+pillow
+gunicorn
+django-heroku
+django-storages
+boto3
