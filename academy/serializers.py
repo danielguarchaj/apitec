@@ -31,3 +31,9 @@ class AssignmentActivitySerializer (serializers.ModelSerializer):
         model = AssignmentActivity
         fields = '__all__'
         depth = 2
+
+
+class AssignmentActivityPatchSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = AssignmentActivity
+        fields = ['file_assignment', 'url_assignment', 'student', 'delivered']

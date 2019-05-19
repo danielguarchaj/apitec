@@ -54,6 +54,7 @@ class AssignmentActivity(models.Model):
     score = models.IntegerField(blank=True, null=True)
     deadline = models.DateTimeField()
     created = models.DateTimeField(auto_now=True)
+    delivered = models.DateTimeField(blank=True, null=True)
     file_assignment = models.FileField(upload_to='assignment_files/', blank=True, null=True)
     url_assignment = models.URLField(blank=True, null=True)
     student = models.ForeignKey(
