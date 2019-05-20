@@ -36,4 +36,4 @@ class AssignmentActivitySerializer (serializers.ModelSerializer):
 class AssignmentActivityPatchSerializer (serializers.ModelSerializer):
     class Meta:
         model = AssignmentActivity
-        fields = ['file_assignment', 'url_assignment', 'student', 'delivered']
+        fields = ['file_assignment', 'url_assignment', 'delivered']
