@@ -12,7 +12,9 @@ from .serializers import (
 
 class AssignmentActivityList (ListAPIView):
     serializer_class = AssignmentActivitySerializer
-    queryset = AssignmentActivity.objects.all()
+    
+    def get_queryset(self):
+        return AssignmentActivity.objects.filter(student__pk=self.kwargs['user_id'])
 
 
 class AssignmentActivityRetrieveUpdate (RetrieveUpdateAPIView):
@@ -23,3 +25,9 @@ class AssignmentActivityRetrieveUpdate (RetrieveUpdateAPIView):
             return AssignmentActivitySerializer
         if self.request.method == 'PUT' or self.request.method == 'PATCH':
             return AssignmentActivityPatchSerializer
+        
+    def get_object(self):
+        try:
+            return AssignmentActivity.objects.get(pk=self.kwargs['asgmt_id'], student__pk=self.kwargs['user_id'])
+        except:
+            return None
