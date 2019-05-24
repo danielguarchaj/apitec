@@ -39,12 +39,16 @@ class Activity(models.Model):
 
 
 class SupportMaterial(models.Model):
+    MATERIAL_TYPES = (
+        ('0', 'Link'),
+        ('1', 'File'),
+        ('2', 'Video'),
+    )
     title = models.CharField(max_length=50)
-    material_type = models.CharField(max_length=100)
-    material_url = models.URLField()
+    material_type = models.CharField(max_length=1, choices=MATERIAL_TYPES, default='0')
+    material_url = models.URLField(blank=True, null=True)
     material_file = models.FileField(blank=True, null=True)
     activity = models.ManyToManyField(Activity)
-
 
     def __str__(self):
         return f'{self.title} - {self.material_type}'

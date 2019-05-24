@@ -156,7 +156,7 @@ REST_FRAMEWORK = {
 }
 
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=21600)
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30)
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
