@@ -31,3 +31,14 @@ class AssignmentActivityRetrieveUpdate (RetrieveUpdateAPIView):
             return AssignmentActivity.objects.get(pk=self.kwargs['asgmt_id'], student__pk=self.kwargs['user_id'])
         except:
             return None
+    
+    # def update(self):
+    #     instance = self.get_object()
+    #     instance.
+    #     instance.save()
+
+    #     serializer = self.get_serializer(instance)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_update(serializer)
+
+    #     return Response(serializer.data)
