@@ -6,6 +6,8 @@ from .models import (
     AssignmentActivity,
     Module,
     SupportMaterial,
+    StudentsGroup,
+    AssignmentDelivery
 )
 
 
@@ -14,3 +16,5 @@ admin.site.register(Language)
 admin.site.register(AssignmentActivity)
 admin.site.register(Module)
 admin.site.register(SupportMaterial)
+admin.site.register(StudentsGroup)
+admin.site.register(AssignmentDelivery)

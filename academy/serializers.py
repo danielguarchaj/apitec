@@ -5,10 +5,10 @@ from .models import (
     Module,
     Activity,
     SupportMaterial,
-    AssignmentActivity
+    AssignmentActivity,
+    StudentsGroup
 )
 
-from users.serializers import UserSerializer
 
 class SupportMaterialSerializer (serializers.ModelSerializer):
     class Meta:
@@ -25,15 +25,20 @@ class ActivitySerializer (serializers.ModelSerializer):
 
 
 class AssignmentActivitySerializer (serializers.ModelSerializer):
-    student = UserSerializer()
     activity = ActivitySerializer()
     class Meta:
         model = AssignmentActivity
         fields = '__all__'
-        depth = 2
 
 
 class AssignmentActivityPatchSerializer (serializers.ModelSerializer):
     class Meta:
         model = AssignmentActivity
         fields = ['file_assignment', 'url_assignment', 'delivered']
+
+
+class StudentsGroupSerializer(serializers.ModelSerializer):
+    group_assignments = AssignmentActivitySerializer(many=True)
+    class Meta:
+        model = StudentsGroup
+        fields = '__all__'

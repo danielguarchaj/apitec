@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.contrib.auth import get_user_model
+from academy.models import StudentsGroup
 
 class Student(models.Model):
     user = models.OneToOneField(
@@ -8,7 +9,7 @@ class Student(models.Model):
         on_delete=models.CASCADE,
         primary_key=True
     )
-
+    groups = models.ManyToManyField(StudentsGroup)
     avatar = models.ImageField(blank=True, null=True, upload_to='student_avatars/')
     address = models.CharField(max_length=200, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)

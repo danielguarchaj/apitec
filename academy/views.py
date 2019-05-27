@@ -1,20 +1,15 @@
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
+from django.contrib.auth import get_user_model
 
 from .models import (
-    AssignmentActivity
+    AssignmentActivity,
+    StudentsGroup
 )
 
 from .serializers import (
     AssignmentActivitySerializer,
     AssignmentActivityPatchSerializer
 )
-
-
-class AssignmentActivityList (ListAPIView):
-    serializer_class = AssignmentActivitySerializer
-    
-    def get_queryset(self):
-        return AssignmentActivity.objects.filter(student__pk=self.kwargs['user_id'])
 
 
 class AssignmentActivityRetrieveUpdate (RetrieveUpdateAPIView):

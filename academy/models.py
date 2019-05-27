@@ -54,20 +54,54 @@ class SupportMaterial(models.Model):
         return f'{self.title} - {self.material_type}'
 
 
-class AssignmentActivity(models.Model):
-    score = models.IntegerField(blank=True, null=True)
+class StudentsGroup (models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.title}'
+
+
+class AssignmentActivity(models.Model):    
     deadline = models.DateTimeField()
     created = models.DateTimeField(auto_now=True)
-    delivered = models.DateTimeField(blank=True, null=True)
-    file_assignment = models.FileField(upload_to='assignment_files/', blank=True, null=True)
-    url_assignment = models.URLField(blank=True, null=True)
-    student = models.ForeignKey(
-        get_user_model(),
-        on_delete=models.CASCADE,
-        related_name='student_assignments'
-    )
     activity = models.ForeignKey(
         Activity,
         on_delete=models.CASCADE,
         related_name='activity_assignments'
     )
+    group = models.ForeignKey(
+        StudentsGroup,
+        on_delete=models.CASCADE,
+        related_name='group_assignments'
+    )
+
+    def __str__(self):
+        return f'{self.activity.title} {self.created} exp: {self.deadline}'
+
+    class Meta:
+        verbose_name = 'Assignment activity'
+        verbose_name_plural = 'Assignemnts activities'
+
+
+class AssignmentDelivery (models.Model):
+    score = models.IntegerField(blank=True, null=True)
+    file_assignment = models.FileField(upload_to='assignment_files/', blank=True, null=True)
+    url_assignment = models.URLField(blank=True, null=True)
+    delivered = models.DateTimeField(blank=True, null=True)
+    student = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='student_deliveries'
+    )
+    assignment_activity = models.ForeignKey(
+        AssignmentActivity,
+        on_delete=models.CASCADE,
+        related_name='assignment_deliveries'
+    )
+
+    def __str__(self):
+        return f'{self.student.username} - {self.assignment_activity.activity.title}'
+
+    class Meta:
+        verbose_name = 'Assignment delivery'
+        verbose_name_plural = 'Assignment deliveries'
