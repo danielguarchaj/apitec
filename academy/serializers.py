@@ -6,7 +6,8 @@ from .models import (
     Activity,
     SupportMaterial,
     AssignmentActivity,
-    StudentsGroup
+    StudentsGroup,
+    AssignmentDelivery,
 )
 
 
@@ -24,17 +25,44 @@ class ActivitySerializer (serializers.ModelSerializer):
         depth = 1
 
 
+class AssignmentDeliverySerializer (serializers.ModelSerializer):
+    class Meta:
+        model = AssignmentDelivery
+        fields = '__all__'
+
+
 class AssignmentActivitySerializer (serializers.ModelSerializer):
     activity = ActivitySerializer()
+    assignment_deliveries = serializers.SerializerMethodField()
     class Meta:
         model = AssignmentActivity
         fields = '__all__'
 
+    def get_assignment_deliveries(self, obj):
+        view = self.context['view']
+        user_pk = int(view.kwargs['pk'])
+        deliveries = AssignmentDelivery.objects.filter(assignment_activity__id=obj.id, student__pk=user_pk)
+        serializer = AssignmentDeliverySerializer(data=deliveries, many=True)
+        serializer.is_valid()
 
-class AssignmentActivityPatchSerializer (serializers.ModelSerializer):
+        return serializer.data
+
+
+class AssignmentActivityStudentSerializer (serializers.ModelSerializer):
+    activity = ActivitySerializer()
+    assignment_deliveries = serializers.SerializerMethodField()
     class Meta:
-        model = AssignmentActivity
-        fields = ['file_assignment', 'url_assignment', 'delivered']
+        model  = AssignmentActivity
+        fields = '__all__'
+
+    def get_assignment_deliveries(self, obj):
+        view = self.context['view']
+        user_pk = int(view.kwargs['user_pk'])
+        deliveries = AssignmentDelivery.objects.filter(assignment_activity__id=obj.id, student__pk=user_pk)
+        serializer = AssignmentDeliverySerializer(data=deliveries, many=True)
+        serializer.is_valid()
+
+        return serializer.data
 
 
 class StudentsGroupSerializer(serializers.ModelSerializer):
@@ -42,3 +70,10 @@ class StudentsGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentsGroup
         fields = '__all__'
+
+
+class AssignmentDeliverySimpleSerializer (serializers.ModelSerializer):    
+    class Meta:
+        model = AssignmentDelivery
+        fields = '__all__'
+

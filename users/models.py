@@ -17,4 +17,4 @@ class Student(models.Model):
     birth_date = models.DateField(blank=True, null=True)
 
     def __str__ (self):
-        return f'{self.user.username} - {self.user.first_name} {self.user.last_name}'
+        return f'{self.user.pk} - {self.user.username} - {self.user.first_name} {self.user.last_name}'

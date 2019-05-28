@@ -5,6 +5,6 @@ from . import views
 app_name = 'academy'
 
 urlpatterns = [
-    # path('assignments_user/<int:user_pk>/', views.AssignmentActivityList.as_view(), name='assignment_list'),
-    path('assignments/<int:asgmt_id>/<int:user_id>/', views.AssignmentActivityRetrieveUpdate.as_view(), name='assignment_retrieve_update'),
+    path('assignments/<int:user_pk>/<int:pk>/', views.AssignmentActivityRetrieve.as_view(), name='assignment_activity_retrieve'),
+    path('deliveries/', views.AssignmentDeliveryCreate.as_view(), name='deliveries_create')
 ]

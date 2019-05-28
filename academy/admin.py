@@ -7,7 +7,7 @@ from .models import (
     Module,
     SupportMaterial,
     StudentsGroup,
-    AssignmentDelivery
+    AssignmentDelivery,
 )
 
 

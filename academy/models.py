@@ -39,19 +39,13 @@ class Activity(models.Model):
 
 
 class SupportMaterial(models.Model):
-    MATERIAL_TYPES = (
-        ('0', 'Link'),
-        ('1', 'File'),
-        ('2', 'Video'),
-    )
     title = models.CharField(max_length=50)
-    material_type = models.CharField(max_length=1, choices=MATERIAL_TYPES, default='0')
     material_url = models.URLField(blank=True, null=True)
     material_file = models.FileField(blank=True, null=True)
     activity = models.ManyToManyField(Activity)
 
     def __str__(self):
-        return f'{self.title} - {self.material_type}'
+        return f'{self.title}'
 
 
 class StudentsGroup (models.Model):
@@ -76,7 +70,7 @@ class AssignmentActivity(models.Model):
     )
 
     def __str__(self):
-        return f'{self.activity.title} {self.created} exp: {self.deadline}'
+        return f'{self.pk} - {self.activity.title} {self.created} exp: {self.deadline}'
 
     class Meta:
         verbose_name = 'Assignment activity'
@@ -85,9 +79,11 @@ class AssignmentActivity(models.Model):
 
 class AssignmentDelivery (models.Model):
     score = models.IntegerField(blank=True, null=True)
-    file_assignment = models.FileField(upload_to='assignment_files/', blank=True, null=True)
-    url_assignment = models.URLField(blank=True, null=True)
-    delivered = models.DateTimeField(blank=True, null=True)
+    delivered = models.DateTimeField()
+    anotation = models.CharField(max_length=250, blank=True, null=True)
+    delivery_file = models.FileField(upload_to='delivery_files/', blank=True, null=True)
+    delivery_url = models.URLField(blank=True, null=True)
+    delivered = models.DateTimeField(auto_now=True, blank=True, null=True)
     student = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
@@ -100,7 +96,7 @@ class AssignmentDelivery (models.Model):
     )
 
     def __str__(self):
-        return f'{self.student.username} - {self.assignment_activity.activity.title}'
+        return f'{self.pk} -{self.student.username} - {self.assignment_activity.activity.title}'
 
     class Meta:
         verbose_name = 'Assignment delivery'
