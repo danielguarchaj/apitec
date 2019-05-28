@@ -70,7 +70,7 @@ class AssignmentActivity(models.Model):
     )
 
     def __str__(self):
-        return f'{self.pk} - {self.activity.title} exp: {self.deadline} - Group: {self.group}'
+        return f'{self.pk} - {self.activity.title} - Value: {self.activity.value} - Group: {self.group}'
 
     class Meta:
         verbose_name = 'Assignment activity'
