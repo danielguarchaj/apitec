@@ -96,7 +96,7 @@ class AssignmentDelivery (models.Model):
     )
 
     def __str__(self):
-        return f'{self.pk} -{self.student.username} - {self.assignment_activity.activity.title}'
+        return f'{self.student.username} - {self.assignment_activity.activity.title} - Group: {self.assignment_activity.group}'
 
     class Meta:
         verbose_name = 'Assignment delivery'
