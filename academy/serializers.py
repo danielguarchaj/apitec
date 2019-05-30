@@ -8,6 +8,7 @@ from .models import (
     AssignmentActivity,
     StudentsGroup,
     AssignmentDelivery,
+    Project,
 )
 
 
@@ -77,3 +78,14 @@ class AssignmentDeliverySimpleSerializer (serializers.ModelSerializer):
         model = AssignmentDelivery
         fields = '__all__'
 
+
+class ProjectSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+
+class ProjectSimpleSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'

@@ -73,8 +73,8 @@ class AssignmentActivity(models.Model):
         return f'{self.pk} - {self.activity.title} - Value: {self.activity.value} - Group: {self.group}'
 
     class Meta:
-        verbose_name = 'Assignment activity'
-        verbose_name_plural = 'Assignemnts activities'
+        verbose_name = 'Activity Assignment'
+        verbose_name_plural = 'Activity Assignments'
 
 
 class AssignmentDelivery (models.Model):
@@ -99,5 +99,16 @@ class AssignmentDelivery (models.Model):
         return f'{self.student.username} - {self.assignment_activity.activity.title} - Group: {self.assignment_activity.group} - Comment: {self.anotation}'
 
     class Meta:
-        verbose_name = 'Assignment delivery'
-        verbose_name_plural = 'Assignment deliveries'
+        verbose_name = 'Student delivery'
+        verbose_name_plural = 'Student deliveries'
+
+
+class Project (models.Model):
+    title = models.CharField(max_length=150)
+    url = models.URLField()
+    image = models.ImageField(upload_to='project_images/')
+    owner = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='projects'
+    )

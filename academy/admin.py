@@ -8,6 +8,7 @@ from .models import (
     SupportMaterial,
     StudentsGroup,
     AssignmentDelivery,
+    Project,
 )
 
 
@@ -18,3 +19,4 @@ admin.site.register(Module)
 admin.site.register(SupportMaterial)
 admin.site.register(StudentsGroup)
 admin.site.register(AssignmentDelivery)
+admin.site.register(Project)
