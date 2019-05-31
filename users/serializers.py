@@ -13,10 +13,18 @@ class StudentSerializer (serializers.ModelSerializer):
         model = Student
         fields = ['groups']
 
+class StudentSimpleGroupSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = '__all__'
+        depth = 2
+
+
 class StudentSimpleSerializer (serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = '__all__'
+
 
 class UserGroupsSerializer (serializers.ModelSerializer):
     student = StudentSerializer()
@@ -26,7 +34,7 @@ class UserGroupsSerializer (serializers.ModelSerializer):
 
 
 class UserStudentSerializer (serializers.ModelSerializer):
-    student = StudentSimpleSerializer()
+    student = StudentSimpleGroupSerializer()
     class Meta:
         model = get_user_model()
         fields = ('id', 'username', 'first_name', 'last_name', 'email', 'student')
