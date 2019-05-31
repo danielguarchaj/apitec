@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 
 from .serializers import UserGroupsSerializer, UserStudentSerializer, UserSimpleSerializer, StudentSimpleSerializer
 
-class UserRetrieve(RetrieveUpdateAPIView):
+class UserRetrieveUpdate(RetrieveUpdateAPIView):
     queryset = get_user_model().objects.all()
 
     def get_serializer_class(self):
@@ -21,8 +21,4 @@ class UserGroupsRetrieve(RetrieveAPIView):
 
 class StudentUpdate(UpdateAPIView):
     serializer_class = StudentSimpleSerializer
-
-
-class UserUpdate (UpdateAPIView):
-    serializer_class = UserSimpleSerializer
     
