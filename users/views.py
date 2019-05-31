@@ -1,6 +1,7 @@
 from rest_framework.generics import RetrieveAPIView, RetrieveUpdateAPIView, UpdateAPIView
 
 from django.contrib.auth import get_user_model
+from users.models import Student
 
 from .serializers import UserGroupsSerializer, UserStudentSerializer, UserSimpleSerializer, StudentSimpleSerializer
 
@@ -21,4 +22,4 @@ class UserGroupsRetrieve(RetrieveAPIView):
 
 class StudentUpdate(UpdateAPIView):
     serializer_class = StudentSimpleSerializer
-    
+    queryset = Student.objects.all()
